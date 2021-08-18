@@ -16,8 +16,8 @@ void init_shell()
 {
     clear();
     printf("\033[0;32m");
-    printf("\n\tBear-Shell (C Port)");
-    printf("\n\tMichael S.");
+    printf("\tBear-Shell (C Port)\n");
+    printf("\tMichael S.");
     printf("\033[0m");
     char* username = getenv("USER");
     printf("\nUSER is: @%s", username);
@@ -64,6 +64,28 @@ void printDir()
   
 void execArgs(char** parsed)
 {
+    /*
+    char cwd[1024];
+    getcwd(cwd, sizeof(cwd));
+    char* PATH = getenv("PATH");
+    char* SHELL = getenv("SHELL");
+    char* HOME = getenv("HOME");
+    char* TERM = getenv("TERM");
+    char* PWD = getenv("PWD");
+    char** env = {
+        "PATH",
+        PATH,
+        "SHELL",
+        SHELL,
+        "HOME",
+        HOME,
+        "TERM",
+        TERM,
+        "PWD",
+        PWD
+    };
+    */
+
     pid_t pid = fork(); 
   
     if (pid == -1) {
@@ -82,6 +104,28 @@ void execArgs(char** parsed)
   
 void execArgsPiped(char** parsed, char** parsedpipe)
 {
+    /*
+    char cwd[1024];
+    getcwd(cwd, sizeof(cwd));
+    char* PATH = getenv("PATH");
+    char* SHELL = getenv("SHELL");
+    char* HOME = getenv("HOME");
+    char* TERM = getenv("TERM");
+    char* PWD = getenv("PWD");
+    char** env = {
+        "PATH",
+        PATH,
+        "SHELL",
+        SHELL,
+        "HOME",
+        HOME,
+        "TERM",
+        TERM,
+        "PWD",
+        PWD
+    };
+    */
+
     int pipefd[2]; 
     pid_t p1, p2;
   
@@ -158,14 +202,6 @@ int ownCmdHandler(char** parsed)
     char* ListOfOwnCmds[NoOfOwnCmds];
     char* username;
     char* github = "https://github.com/BizzyPythonBear\0";
-    char* shell = getenv("SHELL");
-    char path[100]="PATH=";
-    char* folder = "/home/michaelbear/";
-    char* shell = "$HOME/";
-    putenv(strcat(path, folder));
-    char* pPath;
-    pPath = getenv("PATH");
-    printf("%s", pPath);
 
     ListOfOwnCmds[0] = "exit";
     ListOfOwnCmds[1] = "cd";
@@ -208,9 +244,6 @@ int ownCmdHandler(char** parsed)
         return 1;
     case 7:
         debug();
-        return 1;
-    case 8:
-        printf("%s", shell);
         return 1;
     default:
         break;
